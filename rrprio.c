@@ -1,7 +1,7 @@
 /*
 *  rrprio.c - Implementacao do algoritmo Round Robin com Prioridades e sua API
 *
-*  Autores: SUPER_PROGRAMADORES_C
+*  Autores: Caio Vincenzo Reis Dima, Camila Corrêa Vieira, Pedro Cotta Badaró
 *  Projeto: Trabalho Pratico I - Sistemas Operacionais
 *  Organizacao: Universidade Federal de Juiz de Fora
 *  Departamento: Dep. Ciencia da Computacao
@@ -65,16 +65,6 @@ void removeProcessFromQueue(QueueProcessByPriority *queue, Process *process){
             currentProcessNode->process = NULL;
             free(currentProcessNode);
         }
-//	if(currentProcessNode != NULL && prevProcessNode != NULL){
-//		prevProcessNode->next = currentProcessNode->next;
-//		currentProcessNode->next = NULL;
-//		currentProcessNode->process = NULL;
-//		free(currentProcessNode);
-//	}
-//	else if(currentProcessNode != NULL && currentProcessNode->next != NULL){
-//		queue->first = queue->first->next;
-//		queue->last = NULL;
-//	}
 }
 
 ProcessNode* dequeue(QueueProcessByPriority *queue){
@@ -91,16 +81,9 @@ Process *requeue(QueueProcessByPriority *queue){
 	ProcessNode *processNodeFromQueue = dequeue(queue);
 	if(processNodeFromQueue != NULL){
 		Process *processFromQueue = processNodeFromQueue->process;
-
-//		processNodeFromQueue->next = NULL;
-////		processNodeFromQueue->process = NULL;
-//		free(processNodeFromQueue);
-
 		enqueue(queue, processFromQueue);
-//                printf("Não retornou NULL\n");
 		return processFromQueue;
 	}
-//        printf("Retornou NULL2 \n");
 	return NULL;
 }
 
@@ -134,20 +117,9 @@ void rrpInitSchedParams(Process *p, void *rrparams) {
 
 //Retorna o proximo processo a obter a CPU, conforme o algortimo RRPrio 
 Process* rrpSchedule(Process *plist) {
-//    Process *currentProcess = plist;
-//    Process *p0, *p1, *p2, *p3, *p4;
-//    int priorityIterator = 4;
-//    while(currentProcess != NULL){
-//        int currentPriority = ((RRPSchedParams*)processGetSchedParams(currentProcess))->priority;
-//        if(processGetStatus(currentPriority) == PROC_READY){
-//            
-//        }
-//    }
-//    
 	if(!plist) return NULL;
 	int priorityIterator = 4;
 	while(priorityIterator >= 0) {
-//            printf("%d ", priorityIterator);
 		if((priorityQueues[priorityIterator]).first != NULL){
 			Process *process = requeue(&priorityQueues[priorityIterator]);
 			while(process != NULL && processGetStatus(process) != PROC_READY)
@@ -157,7 +129,6 @@ Process* rrpSchedule(Process *plist) {
 		}
 		priorityIterator--;
 	}
-//        printf("Retornou NULL\n");
 	return NULL;
 }
 
